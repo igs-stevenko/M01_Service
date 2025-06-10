@@ -150,13 +150,13 @@ int PostData(char *url, char *postData, char *resData, int *resDataLen){
 	rtn = curlctrl.CurlPost(url, postData);
 	if(rtn != 0){
 		curlctrl.CleanData();
-		return -1;
+		return 1;
 	}
 
 	*resDataLen = curlctrl.GetDataLen();
 	if(*resDataLen <= 0){
 		curlctrl.CleanData();
-		return -2;
+		return 2;
 	}
 
 	curlctrl.GetData(resData, *resDataLen);

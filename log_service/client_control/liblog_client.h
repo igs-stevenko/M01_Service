@@ -8,9 +8,9 @@ extern "C" {
 
 /*	return value :
  *	SUCCESS = 0
- *	CURL_POST_FAILED = -1
- *	GET_DATALEN_FAILED = -2
- *	POST_BINDER_FAILED = -3
+ *	CURL_POST_FAILED = 1
+ *	GET_DATALEN_FAILED = 2
+ *	POST_BINDER_FAILED = 3
  */
 int send_cmd_post(const char *url, const char *data, char *resData, int *resDataLen);
 
@@ -19,12 +19,12 @@ int send_cmd_post(const char *url, const char *data, char *resData, int *resData
 /*
  * return value
  * SUCCESS = 0
- * SOCKET_FAILED = -1
- * SET_TIMEOUT_FAILED = -2
- * SET_BINDTODEVICE_FAILED = -3
- * SEND_FAILED = -4
- * RECV_FAILED = -5
- * GETIP_BINDER_FAILED = -6
+ * SOCKET_FAILED = 1
+ * SET_TIMEOUT_FAILED = 2
+ * SET_BINDTODEVICE_FAILED = 3
+ * SEND_FAILED = 4
+ * RECV_FAILED = 5
+ * GETIP_BINDER_FAILED = 6
  * */
 int send_cmd_getip(const char *domain, char *ip);
 };

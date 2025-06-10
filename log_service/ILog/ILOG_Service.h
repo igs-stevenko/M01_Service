@@ -1,5 +1,5 @@
-#ifndef _LOGSERVICE_H_
-#define _LOGSERVICE_H_
+#ifndef _ILOGSERVICE_H_
+#define _ILOGSERVICE_H_
 #include <stdio.h>
 #include <binder/IInterface.h>
 #include <binder/Parcel.h>
@@ -18,32 +18,21 @@
 #include <utils/Log.h>
 #include <utils/threads.h>
 
-#include "BnLOGService.h"
-#include "LOG_Client.h"
+//#include "../server_control/BnLOGService.h"
+#include "ILOG_Client.h"
 
 using namespace android;
 namespace android
 {
+	//class ILOGClient;
 
-	class LOGService : public BnLOGService{
-
-		public : 
-			LOGService(){
-				//printf("### [%s][%d] ###\n", __func__, __LINE__); 
-				mClient = new LOGClient();
-			}
-
-
-			virtual sp<ILOGClient> getClient() {
-				//printf("### [%s][%d] ###\n", __func__, __LINE__); 
-				return mClient;
-			}
-
-		private :
-
-			sp<ILOGClient> mClient;
-
+	class ILOGService : public IInterface
+	{
+		public:
+			DECLARE_META_INTERFACE(LOGService);
+			virtual sp<ILOGClient> getClient() = 0;
 	};
+
 }
 
 #endif

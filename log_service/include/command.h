@@ -5,6 +5,7 @@ enum
 {
 	GET_IP = 0,
 	POST_LOG,
+	GET_CLIENT_TRANSACTION
 };
 
 #endif

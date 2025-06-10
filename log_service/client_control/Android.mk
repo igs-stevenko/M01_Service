@@ -11,7 +11,10 @@ LOCAL_MODULE    := liblog_client
 
 LOCAL_SRC_FILES := \
     liblog_client.cpp \
-    LOG_Client.cpp
+    BpLOGService.cpp \
+    BpLOGClient.cpp \
+	../ILog/ILOG_Client.cpp \
+	../ILog/ILOG_Service.cpp
 
 LOCAL_MODULE_TAGS := optional
 include $(BUILD_SHARED_LIBRARY)

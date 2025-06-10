@@ -1,5 +1,5 @@
-#ifndef _LOG_CLIENT_H_
-#define _LOG_CLIENT_H_
+#ifndef __BPLOGCLIENT_H__
+#define __BPLOGCLIENT_H__
 
 #include <stdio.h>
 #include <unistd.h>
@@ -19,31 +19,30 @@ using namespace android;
 namespace android
 {
 	class BpLOGClient: public BpInterface<ILOGClient> {
-		
+
 		public:
 
 			BpLOGClient(const sp<IBinder>& impl);
 			int cmd_send(int mode);
-
 			void setDomain(const char *);
 			void setUrl(const char *);
 			void setPost(const char *);
 			const char* getIP();
 			const char* getData();
 			int getDataLen();
-		
+
 		private:
-			
+
 			String8 domain;
 			String8 ip;
-            String8 url;
-            String8 postdata;
-            String8 resData;
-            int resDataLen;
+			String8 url;
+			String8 postdata;
+			String8 resData;
+			int resDataLen;
 
 
 	};
 }
 
-#endif
 
+#endif

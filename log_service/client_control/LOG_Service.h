@@ -18,32 +18,32 @@
 #include <utils/Log.h>
 #include <utils/threads.h>
 
-#include "BnLOGService.h"
+#include "../ILog/ILOG_Service.h"
 #include "LOG_Client.h"
+#include "../include/command.h"
+
+#define ACTION_ERROR (-1)
+
+#ifdef ALOGD
+#ifdef LOG_TAG
+#undef LOG_TAG  
+#define LOG_TAG "NativeIGSPROTECTDaemon"
+#endif
+
+#define LOGD(msg,...)                 ALOGD("%s(%d):" msg ,__FUNCTION__,__LINE__,##__VA_ARGS__)
+#endif
 
 using namespace android;
 namespace android
 {
 
-	class LOGService : public BnLOGService{
-
-		public : 
-			LOGService(){
-				//printf("### [%s][%d] ###\n", __func__, __LINE__); 
-				mClient = new LOGClient();
-			}
-
-
-			virtual sp<ILOGClient> getClient() {
-				//printf("### [%s][%d] ###\n", __func__, __LINE__); 
-				return mClient;
-			}
-
-		private :
-
-			sp<ILOGClient> mClient;
-
+	class BpLOGService: public BpInterface<ILOGService> {
+		
+		public:
+			BpLOGService(const sp<IBinder>& impl);
+			sp<ILOGClient> getClient();
 	};
+
 }
 
 #endif

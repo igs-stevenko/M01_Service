@@ -15,11 +15,19 @@ LOCAL_LDLIBS += -lz
 LOCAL_CPPFLAGS += -std=c++11
 LOCAL_STATIC_LIBRARIES := libstdc++
 
+LOCAL_CFLAGS += -Wno-unused-parameter
+LOCAL_CFLAGS += -Wno-unused-label
+LOCAL_CFLAGS += -Wno-unused-variable
+LOCAL_CFLAGS += -Wno-unused-function
+
 LOCAL_SRC_FILES := \
-    LOG_Service.cpp \
+    BnLOGService.cpp \
+    BnLOGClient.cpp \
     IGSLOG_Handle.cpp \
 	getip.cpp \
-	igs_curl.cpp
+	igs_curl.cpp \
+	../ILog/ILOG_Service.cpp \
+	../ILog/ILOG_Client.cpp
 
 LOCAL_MODULE_TAGS := optional
 include $(BUILD_EXECUTABLE)

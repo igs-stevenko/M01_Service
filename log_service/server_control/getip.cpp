@@ -45,11 +45,12 @@ int getip(char *hostname, char *ip) {
 
     build_dns_query(buf, hostname, &query_len);
 
+
     // Create socket
     int sock = socket(AF_INET, SOCK_DGRAM, 0);
     if (sock < 0) {
         perror("socket failed");
-        return -SOCKET_FAILED;
+        return SOCKET_FAILED;
     }
 
 	struct timeval tv;
@@ -58,13 +59,13 @@ int getip(char *hostname, char *ip) {
 	if(setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv)) < 0){
         perror("setsockopt(SO_RCVTIMEO)");
         close(sock);
-        return -SET_TIMEOUT_FAILED;
+        return SET_TIMEOUT_FAILED;
 	}
 
 	if (setsockopt(sock, SOL_SOCKET, SO_BINDTODEVICE, "eth1", strlen("eth1")) < 0) {
         perror("setsockopt(SO_BINDTODEVICE)");
         close(sock);
-        return -SET_BINDTODEVICE_FAILED;
+        return SET_BINDTODEVICE_FAILED;
     }
 
 
@@ -78,7 +79,7 @@ int getip(char *hostname, char *ip) {
     if (sendto(sock, buf, query_len, 0, (struct sockaddr *)&dest, sizeof(dest)) < 0) {
         perror("sendto failed");
         close(sock);
-        return -SEND_FAILED;
+        return SEND_FAILED;
     }
 
     // Receive response
@@ -87,7 +88,7 @@ int getip(char *hostname, char *ip) {
     if (recv_len < 0) {
         perror("recvfrom failed");
         close(sock);
-        return -RECV_FAILED;
+        return RECV_FAILED;
     }
 
 

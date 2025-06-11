@@ -11,6 +11,7 @@ extern "C" {
  *	CURL_POST_FAILED = 1
  *	GET_DATALEN_FAILED = 2
  *	POST_BINDER_FAILED = 3
+ *	NULL_URL = 4
  */
 int send_cmd_post(const char *url, const char *data, char *resData, int *resDataLen);
 
@@ -25,6 +26,7 @@ int send_cmd_post(const char *url, const char *data, char *resData, int *resData
  * SEND_FAILED = 4
  * RECV_FAILED = 5
  * GETIP_BINDER_FAILED = 6
+ * NULL_DOMAIN = 7
  * */
 int send_cmd_getip(const char *domain, char *ip);
 };

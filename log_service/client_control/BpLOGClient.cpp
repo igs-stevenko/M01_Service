@@ -85,9 +85,7 @@ namespace android
 
 
 	void BpLOGClient::setDomain(const char *src) {
-		printf("### [%s][%d] ###\n", __func__, __LINE__); 
 		domain.setTo(src);	
-		printf("### [%s][%d] ###\n", __func__, __LINE__); 
 	}
 
 	void BpLOGClient::setUrl(const char *src) {

@@ -26,13 +26,17 @@ int main(void){
 		"}";
 
 	const char *domain = "log.awp-skill.com";
-	const char *url = "https://54.187.105.103/log";
+	const char *url = "https://52.43.115.163/log";
+	//const char *url = "https://54.187.105.103/log";
 	unsigned char ip[1024] = {0x00};
 
 	printf("Process Start\n");
 	printf("a. POST_LOG\n");
-	printf("b. GET_IP\n");
-	printf("c. Loo Post TEST\n");
+	printf("b. GET_IP : log.awp-skill.com\n");
+	printf("c. Loop TEST\n");
+	printf("d. Null URL Test\n");
+	printf("e. Null Domain Test\n");
+	printf("f. GET_IP : www.google.com\n");
 
 	cmd = getchar();
 	getchar();
@@ -91,6 +95,51 @@ int main(void){
 			}
 			break;
 		}
+		case 'd':
+		{
+			unsigned char resData[1048576] = {0x00};
+			unsigned char null_url[1024] = {0x00};
+			int resDataLen = 0;
+			rtn = send_cmd_post((const char *)null_url, json_payload, (char *)resData, &resDataLen);
+			if(rtn != 0){
+				printf("[ERROR] : send_cmd_post failed, rtn = %d\n", rtn);
+				exit(1);
+			}
+
+			printf("resData = %s\n", resData);
+			printf("resDataLen = %d\n", resDataLen);
+
+			break;
+		}
+		case 'e':
+		{
+			unsigned char null_domain[1024] = {0x00};
+			rtn = send_cmd_getip((const char *)null_domain, (char *)ip);
+			if(rtn != 0){
+				printf("[ERROR] : send_cmd_getip failed, rtn = %d\n", rtn);
+				exit(1);
+			}
+
+			printf("ip = %s\n", ip);
+
+			break;
+		}
+
+		case 'f':
+		{
+			rtn = send_cmd_getip("www.google.com", (char *)ip);
+			if(rtn != 0){
+				printf("[ERROR] : send_cmd_getip failed, rtn = %d\n", rtn);
+				exit(1);
+			}
+
+			printf("ip = %s\n", ip);
+			break;
+
+
+			break;
+		}
+
 		default:
 			break;
 	}

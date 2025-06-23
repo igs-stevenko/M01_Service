@@ -1,0 +1,10 @@
+#ifndef __ERROR_CODE_H__
+#define __ERROR_CODE_H__
+
+enum{
+	TRACEROUTE_CMD_FAILED = 1,
+	TRACEROUTE_BINDER_FAILED = 2,
+	NULL_POINT = 3
+};
+
+#endif

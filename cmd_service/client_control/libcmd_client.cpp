@@ -8,7 +8,7 @@
 int send_cmd_traceroute(char *resData, int *resDataLen){
 
 	int rtn = 0;
-	const char *ShellCmd = "busybox traceroute 8.8.8.8 2>&1";
+	const char *ShellCmd = "busybox traceroute  -m 10 220.181.38.148";
 
 	if(resData == NULL){
 		return NULL_POINT;

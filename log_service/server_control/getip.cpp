@@ -10,7 +10,7 @@
 #define DNS_PORT 53
 #define DNS_SERVER "8.8.8.8"
 
-void build_dns_query(unsigned char *buf, const char *hostname, int *query_len) {
+void build_dns_query(unsigned char *buf, const char *domain, int *query_len) {
     // DNS Header
     buf[0] = 0x12; buf[1] = 0x34; // Transaction ID
     buf[2] = 0x01; buf[3] = 0x00; // Flags (standard query)
@@ -20,7 +20,7 @@ void build_dns_query(unsigned char *buf, const char *hostname, int *query_len) {
     buf[10] = 0x00; buf[11] = 0x00; // Additional RRs
 
     // Query section
-    const char *p = hostname;
+    const char *p = domain;
     int pos = 12;
     while (*p) {
         const char *dot = strchr(p, '.');
@@ -39,12 +39,15 @@ void build_dns_query(unsigned char *buf, const char *hostname, int *query_len) {
     *query_len = pos;
 }
 
-int getip(char *hostname, char *ip) {
+int getip(char *domain, char *ip) {
     unsigned char buf[512];
     int query_len;
 
-    build_dns_query(buf, hostname, &query_len);
+	if(strlen(domain) <= 0)
+	  return NULL_DOMAIN;
+	
 
+    build_dns_query(buf, domain, &query_len);
 
     // Create socket
     int sock = socket(AF_INET, SOCK_DGRAM, 0);
@@ -91,6 +94,43 @@ int getip(char *hostname, char *ip) {
         return RECV_FAILED;
     }
 
+#if 1
+	int answer_count = buf[6] << 8 | buf[7];
+	printf("Answer count: %d\n", answer_count);
+
+
+	int pos = 12;
+	while (buf[pos] != 0) pos += buf[pos] + 1;
+	pos += 5;  // Skip null byte + QTYPE + QCLASS
+
+	for (int i = 0; i < answer_count; i++) {
+		// Skip NAME (pointer or label)
+		if ((buf[pos] & 0xC0) == 0xC0) {
+			pos += 2;
+		} else {
+			while (buf[pos] != 0) pos += buf[pos] + 1;
+			pos += 1;
+		}
+
+		uint16_t type = buf[pos] << 8 | buf[pos+1];
+		uint16_t classd = buf[pos+2] << 8 | buf[pos+3];
+		uint32_t ttl = (buf[pos+4]<<24) | (buf[pos+5]<<16) | (buf[pos+6]<<8) | buf[pos+7];
+		uint16_t rdlength = buf[pos+8] << 8 | buf[pos+9];
+		pos += 10;
+
+		if (type == 1 && classd == 1 && rdlength == 4) {
+			// A record found
+			/*
+			printf("IP Address: %d.%d.%d.%d (TTL: %u)\n",
+						buf[pos], buf[pos+1], buf[pos+2], buf[pos+3], ttl);
+			*/
+			sprintf(ip, "%d.%d.%d.%d\n", buf[pos], buf[pos+1], buf[pos+2], buf[pos+3]);
+			break;
+		}
+
+		pos += rdlength;
+	}
+#else
 
     int i;
 	for (i = 0; i < recv_len - 4; i++) {
@@ -101,6 +141,7 @@ int getip(char *hostname, char *ip) {
             }
         }
     }
+#endif
 
     close(sock);
 

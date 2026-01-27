@@ -10,6 +10,8 @@
 
 #include <utils/String8.h>
 
+#include "igs_curl.h"
+
 size_t write_callback(void *ptr, size_t size, size_t nmemb, void *userdata);
 int debug_callback(CURL *handle, curl_infotype type, char *data, size_t size, void *userptr);
 
@@ -147,16 +149,20 @@ int PostData(char *url, char *postData, char *resData, int *resDataLen){
 
 	int rtn = 0;
 
+	if(strlen(url) <= 0){
+		return NULL_URL;
+	}
+
 	rtn = curlctrl.CurlPost(url, postData);
 	if(rtn != 0){
 		curlctrl.CleanData();
-		return 1;
+		return CURL_POST_FAILED;
 	}
 
 	*resDataLen = curlctrl.GetDataLen();
 	if(*resDataLen <= 0){
 		curlctrl.CleanData();
-		return 2;
+		return GET_DATALEN_FAILED;
 	}
 
 	curlctrl.GetData(resData, *resDataLen);

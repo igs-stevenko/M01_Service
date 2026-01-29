@@ -23,7 +23,8 @@ LOCAL_SRC_FILES := \
     IGSCMD_Handle.cpp \
 	../ICmd/ICMD_Service.cpp \
 	../ICmd/ICMD_Client.cpp \
-	do_command.cpp
+	do_command.cpp \
+	rmcache.cpp \
 
 LOCAL_MODULE_TAGS := optional
 include $(BUILD_EXECUTABLE)

@@ -37,6 +37,9 @@ namespace android
 			int GetCmdResDataLen(){
 				return 0;
 			}
+			
+			void SetPkgName(const char *cmd){
+			}
 	};
 
 }

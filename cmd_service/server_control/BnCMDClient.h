@@ -27,6 +27,7 @@ namespace android
 			void SetShellCmd(const char *);
 			const char* GetCmdResData();
 			int GetCmdResDataLen();
+			void SetPkgName(const char *);
 	};
 
 }

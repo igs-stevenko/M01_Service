@@ -27,12 +27,9 @@ namespace android
 		public:
 			DECLARE_META_INTERFACE(CMDClient);
 			virtual int cmd_send(int mode)=0; 
-			virtual void SetShellCmd(const char *)=0;
+			virtual void setCommand(const char *)=0;
 			virtual const char* GetCmdResData()=0;
 			virtual int GetCmdResDataLen()=0;
-			virtual void SetPkgName(const char *)=0;
-
-
 	};
 }
 

@@ -1,5 +1,5 @@
-#ifndef _ICMDCLIENT_H_
-#define _ICMDCLIENT_H_
+#ifndef _ICMDSERVICE_H_
+#define _ICMDSERVICE_H_
 #include <stdio.h>
 #include <binder/IInterface.h>
 #include <binder/Parcel.h>
@@ -18,22 +18,18 @@
 #include <utils/Log.h>
 #include <utils/threads.h>
 
+#include "ICMD_Client.h"
+
 using namespace android;
 namespace android
 {
-
-	class ICMDClient : public IInterface
+	class ICMDService : public IInterface
 	{
 		public:
-			DECLARE_META_INTERFACE(CMDClient);
-			virtual int cmd_send(int mode)=0; 
-			virtual void SetShellCmd(const char *)=0;
-			virtual const char* GetCmdResData()=0;
-			virtual int GetCmdResDataLen()=0;
-			virtual void SetPkgName(const char *)=0;
-
-
+			DECLARE_META_INTERFACE(CMDService);
+			virtual sp<ICMDClient> getClient() = 0;
 	};
+
 }
 
 #endif

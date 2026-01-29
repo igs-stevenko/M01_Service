@@ -1,5 +1,6 @@
 #include "BnCMDClient.h"
 #include "do_command.h"
+#include "rmcache.h"
 
 namespace android
 {
@@ -19,6 +20,9 @@ namespace android
 	
 	int BnCMDClient::cmd_send(int mode) {
 		return 0;
+	}
+	
+	void BnCMDClient::SetPkgName(const char *src){
 	}
 	
 	status_t BnCMDClient::onTransact(uint32_t code, const Parcel& data, Parcel* reply, uint32_t flags) {
@@ -58,6 +62,22 @@ namespace android
 
 					break;
 				}
+
+			case CLEAR_GAME_CACHE :
+				{
+					printf("---> CLEAR_GAME_CACHE <---\n");
+
+					int len;
+					String8 PkgName;
+					
+					PkgName = data.readString8();
+
+					printf("[INFO] : PkgName = %s\n", PkgName.string());
+					remove_data(PkgName.string());
+
+					break;
+				}
+
 
 			default:
 

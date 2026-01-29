@@ -49,7 +49,7 @@ namespace android
 
 		switch(mode){
 			case EXECUTE_CMD :
-
+			{
 				data.writeString8(ShellCmd);
 				
 				remote()->transact(EXECUTE_CMD, data, &reply);
@@ -59,12 +59,19 @@ namespace android
 				rtn = reply.readInt32();
 
 				break;
+			}
+			case CLEAR_GAME_CACHE :
+			{
+				data.writeString8(PkgName);
+				remote()->transact(CLEAR_GAME_CACHE, data, &reply);
+			}
 
 			default:
-
+			{
 				rtn = -1;
 
 				break;
+			}
 		}
 
 		return rtn;
@@ -80,5 +87,9 @@ namespace android
 
 	int BpCMDClient::GetCmdResDataLen(void) {
 		return CmdResDataLen;
+	}
+
+	void BpCMDClient::SetPkgName(const char *src) {
+		PkgName.setTo(src);	
 	}
 }

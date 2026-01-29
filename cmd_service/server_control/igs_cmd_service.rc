@@ -1,0 +1,6 @@
+service igs_cmd_serv /system/bin/igs_cmd_service
+	class core
+	oneshot
+	user root
+	group root
+	disabled

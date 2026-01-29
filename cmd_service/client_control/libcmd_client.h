@@ -12,11 +12,23 @@ extern "C" {
  *
  *	return value :
  *		0 : success
- *		1 : 執行traceroute指令錯誤
- *		2 : binder錯誤
- *		3 : 傳入的參數錯誤
+ *		0 : success
+ *		< 0 : 錯誤
  */
+
+
 int send_cmd_traceroute(char *resData, int *resDataLen);
+
+
+/*	參數 : 
+ *		PkgName : 遊戲的PackageName
+ *
+ *	return value :
+ *		0 : success
+ *		< 0 : 錯誤
+ */
+
+int send_cmd_cleargamecache(const char *PkgName);
 
 };
 #endif

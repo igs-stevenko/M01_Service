@@ -27,6 +27,7 @@ namespace android
 			void SetShellCmd(const char *);
 			const char* GetCmdResData();
 			int GetCmdResDataLen();
+			void SetPkgName(const char *);
 
 		private:
 
@@ -34,6 +35,7 @@ namespace android
 			String8 CmdResData;
 			int CmdResDataLen;
 
+			String8 PkgName;
 
 	};
 }

@@ -1,7 +1,7 @@
 #ifndef __GETIP_H__
 #define __GETIP_H__
 
-int getip(char *hostname, char *ip);
+int getip(char *domain, char *ip);
 
 enum {
 
@@ -9,7 +9,8 @@ enum {
 	SET_TIMEOUT_FAILED,
 	SET_BINDTODEVICE_FAILED,
 	SEND_FAILED,
-	RECV_FAILED
+	RECV_FAILED,
+	NULL_DOMAIN=7
 
 };
 

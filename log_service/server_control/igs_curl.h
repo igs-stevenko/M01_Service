@@ -5,7 +5,7 @@ enum{
 	
 	CURL_POST_FAILED = 1,
 	GET_DATALEN_FAILED,
-	
+	NULL_URL = 4,
 
 };
 

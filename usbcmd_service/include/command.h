@@ -1,0 +1,13 @@
+#ifndef __COMMAND_H__
+#define __COMMAND_H__
+
+enum
+{
+	EXECUTE_CMD = 0,
+	GET_CLIENT_TRANSACTION,
+	REMOVE_CACHE,
+	GPIO14_UP,
+	GPIO14_DOWN
+};
+
+#endif

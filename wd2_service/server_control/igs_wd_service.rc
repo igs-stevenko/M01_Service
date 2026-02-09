@@ -1,0 +1,6 @@
+service igs_wd_serv /system/bin/igs_wd_service
+	class core
+	oneshot
+	user root
+	group root
+	disabled
